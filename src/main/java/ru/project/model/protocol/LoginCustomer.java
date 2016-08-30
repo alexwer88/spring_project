@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 /**
  * Created by averizhnikov on 25.08.2016.
  */
-@Validated
+
 public class LoginCustomer extends Protocol {
 
     @NotNull
