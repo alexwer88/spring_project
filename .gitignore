@@ -1,0 +1,11 @@
+/.gitattributes
+/target/
+/out/
+/.idea/
+.DS_Store
+*.iml
+/.gradle
+/_ajdump
+/build
+/libs
+/1234

@@ -1,0 +1,26 @@
+spring:
+  datasource:
+driverClassName: org.postgresql.Driver
+    jdbcUrl: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: a123456
+    connectionTestQuery: select 1
+    maximumPoolSize: 5
+  jmx:
+    enabled: true
+
+logging:
+  level:
+    ROOT: 'INFO'
+    ru.netbynet: 'INFO'
+
+management:
+  port: 8899 # Spring Actuator, необходим для консула - использовать всегда
+
+server:
+  port: 8899 # Если нужно предоставлять api, не использовать для демонов
+  ssl: # Включение SSL
+    key-store: file:/opt/keystore/ti.ru.jks
+    key-store-password: 51397509
+    key-password: 51397509
+    keyAlias: 1

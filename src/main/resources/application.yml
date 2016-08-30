@@ -1,0 +1,24 @@
+spring:
+  profiles:
+    active: dev
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    properties:
+      hibernate:
+        temp:
+          use_jdbc_metadata_defaults: false
+
+  jackson:
+    time-zone: Europe/Moscow #часовой пояс для даты в json
+
+security:
+  basic:
+    enabled: false
+
+ribbon: # таймауты для RestTemplate
+  ConnectTimeout: 30000
+  ReadTimeout: 180000
+
+jsondoc: # документирование Rest методов в котроллерах
+  packages:
+    - ru.project
