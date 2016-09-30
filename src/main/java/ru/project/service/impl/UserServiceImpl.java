@@ -2,12 +2,15 @@ package ru.project.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Base64Utils;
-import org.springframework.util.DigestUtils;
-import ru.project.model.entity.UserEntity;
-import ru.project.model.protocol.User;
+import ru.project.model.entity.Phone;
+import ru.project.model.entity.User;
+import ru.project.model.protocol.UserPhoneProtocol;
+import ru.project.model.protocol.UserProtocol;
 import ru.project.repository.UserRepository;
 import ru.project.service.UserService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Сервис, управляющий пользователями
@@ -20,23 +23,47 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
+
     @Override
-    public UserEntity getUserEntity(User user) {
-        return userRepository.findByEmailAndPasswordAndActiveTrue(
-                user.getEmail(),
-                encodeMD5(user.getPassword())
-        );
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
     }
 
-    private String encodeMD5(String value) {
-        if (value == null || value.isEmpty()) {
-            return null;
+    @Override
+    public List<UserPhoneProtocol> getUserPhoneProtocols() {
+
+        List<UserPhoneProtocol> result = new ArrayList<>();
+
+        for (User user : userRepository.findAll()) {
+            result.add(
+                    new UserPhoneProtocol(
+                            user.getName(),
+                            getPhoneNumberList(user.getId())
+                    )
+            );
         }
-        return new String(
-                Base64Utils.encode(
-                        DigestUtils.md5Digest(value.getBytes())
-                )
-        );
+
+        return result;
     }
 
+    private List<String> getPhoneNumberList(Integer userId) {
+        List<String> result = new ArrayList<>();
+        for (Phone phone : userRepository.getOne(userId).getPhones()) {
+            if (phone.getNumber() != null)
+                result.add(phone.getNumber());
+        }
+        return result;
+    }
+
+    @Override
+    public User addUser(UserProtocol userProtocol) {
+        User user = new User();
+        user.setName(userProtocol.getName());
+        return userRepository.saveAndFlush(user);
+    }
+
+    @Override
+    public void deleteUser(Integer userId) {
+        userRepository.delete(userId);
+    }
 }

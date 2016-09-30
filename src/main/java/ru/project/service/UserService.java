@@ -1,7 +1,10 @@
 package ru.project.service;
 
-import ru.project.model.entity.UserEntity;
-import ru.project.model.protocol.User;
+import ru.project.model.entity.User;
+import ru.project.model.protocol.UserPhoneProtocol;
+import ru.project.model.protocol.UserProtocol;
+
+import java.util.List;
 
 
 /**
@@ -10,5 +13,13 @@ import ru.project.model.protocol.User;
  */
 public interface UserService {
 
-    UserEntity getUserEntity(User user);
+
+    List<ru.project.model.entity.User> getAllUsers();
+
+    List<UserPhoneProtocol> getUserPhoneProtocols();
+
+    User addUser(UserProtocol userProtocol);
+
+    void deleteUser(Integer userId);
+
 }

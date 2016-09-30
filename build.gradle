@@ -48,7 +48,7 @@ dependencies {
     compile 'org.jsondoc:spring-boot-starter-jsondoc:1.2.9'
     compile 'javax.el:javax.el-api:3.0.1-b04'
     compile 'com.zaxxer:HikariCP'
-    compile 'org.postgresql:postgresql:9.4-1202-jdbc42'
+    compile group: 'org.postgresql', name: 'postgresql', version: '9.2-1002-jdbc4'
     compile 'org.projectlombok:lombok:1.16.6'
     compile 'org.jsondoc:jsondoc-ui-webjar:1.1.8'
 
