@@ -3,6 +3,7 @@ package ru.project.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.project.exception.GroupNotFoundException;
@@ -28,12 +29,13 @@ public class IMEIController {
 
     /**
      * Метод, обрабатывающий запрос получения группы для IMEI
+     *
      * @param imei IMEI
      * @return группа
      * @throws GroupNotFoundException возникает когда группа не найдена
      */
-    @RequestMapping("/group/getByImei")
-    public String getImei(@NotNull @Size(min = 15, max = 16) String imei) {
+    @RequestMapping("/imei/{imei}/group")
+    public String getImei(@PathVariable @NotNull @Size(min = 15, max = 16) String imei) {
         return imeiService.getGroupByImei(imei);
     }
 
