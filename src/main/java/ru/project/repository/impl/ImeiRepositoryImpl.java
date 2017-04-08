@@ -44,7 +44,7 @@ public class ImeiRepositoryImpl implements ImeiRepository {
         return indexedTacGroup.get(tac);
     }
 
-    private InputStream getResource(String fileName) {
+    private InputStream getResource(String fileName)  {
         Resource resource = new ClassPathResource(fileName);
         InputStream resourceInputStream;
         try {
