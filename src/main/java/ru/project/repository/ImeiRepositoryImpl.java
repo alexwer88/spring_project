@@ -4,6 +4,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Repository;
 import org.yaml.snakeyaml.Yaml;
+import ru.project.exception.LoadDataException;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
@@ -27,16 +28,9 @@ public class ImeiRepositoryImpl {
 
     @PostConstruct
     public void init() {
-        Resource resource = new ClassPathResource("tac_groups.yaml");
-        InputStream resourceInputStream = null;
-        try {
-            resourceInputStream = resource.getInputStream();
-        } catch (IOException e) {
-           throw new RuntimeException();
-        }
-
         Yaml yaml = new Yaml();
-        Map<String, Map<String, List<String>>> tacGroups = (Map<String, Map<String, List<String>>>) yaml.load(resourceInputStream);
+        Map<String, Map<String, List<String>>> tacGroups = (Map<String, Map<String, List<String>>>) yaml
+                .load(getResource("tac_groups.yaml"));
 
         indexedTacGroup = new HashMap<>();
         tacGroups.get("tac_groups").forEach((group, list) -> list
@@ -45,5 +39,16 @@ public class ImeiRepositoryImpl {
 
     public String getGroup(String tac) {
         return indexedTacGroup.get(tac);
+    }
+
+    private InputStream getResource(String fileName) {
+        Resource resource = new ClassPathResource("tac_groups.yaml");
+        InputStream resourceInputStream = null;
+        try {
+            resourceInputStream = resource.getInputStream();
+        } catch (IOException e) {
+            throw new LoadDataException(e.getMessage());
+        }
+        return resourceInputStream;
     }
 }
