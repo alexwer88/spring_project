@@ -22,3 +22,4 @@ ribbon: # таймауты для RestTemplate
 jsondoc: # документирование Rest методов в котроллерах
   packages:
     - ru.project
+
