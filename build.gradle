@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        project_name = 'auth-project'
+        project_name = 'test-project'
         jvm_opts = [
                 "-Dspring.profiles.active=prod",
                 "-XX:+CMSClassUnloadingEnabled",
