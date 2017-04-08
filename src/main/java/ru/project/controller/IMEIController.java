@@ -6,16 +6,12 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.project.exception.GroupNotFoundException;
-import ru.project.exception.LoadDataException;
 import ru.project.model.Error;
-import ru.project.repository.impl.ImeiRepositoryImpl;
 import ru.project.service.ImeiService;
 
 import javax.validation.ConstraintViolationException;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import java.io.IOException;
 
 /**
  * Контроллер обрабатывающий запросы для групп
