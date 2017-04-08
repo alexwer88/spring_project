@@ -11,6 +11,7 @@ import ru.project.model.Error;
 import ru.project.repository.impl.ImeiRepositoryImpl;
 import ru.project.service.ImeiService;
 
+import javax.validation.ConstraintViolationException;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -29,13 +30,24 @@ public class IMEIController {
     private ImeiService imeiService;
 
 
+    /**
+     * Метод, обрабатывающий запрос получения группы для IMEI
+     * @param imei IMEI
+     * @return группа
+     * @throws GroupNotFoundException возникает когда группа не найдена
+     */
     @RequestMapping("/group/getByImei")
-    public String getImei(@NotNull @Size(min = 15, max = 16) String imei) throws GroupNotFoundException {
+    public String getImei(@NotNull @Size(min = 15, max = 16) String imei) {
         return imeiService.getGroupByImei(imei);
     }
 
     @ExceptionHandler(GroupNotFoundException.class)
     public Error handleGroupNotFoundException(Exception ex) {
         return new Error(1001, ex.getMessage());
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    public Error handlValidateException(ConstraintViolationException ex) {
+        return new Error(0, "Not valid params");
     }
 }
