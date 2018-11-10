@@ -1,4 +1,0 @@
-CREATE SCHEMA notice;
-CREATE SCHEMA unity;
-CREATE SCHEMA sync;
-CREATE SCHEMA stats;
